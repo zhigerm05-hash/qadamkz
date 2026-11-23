@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QADAM — Саналы Әдет және Тәртіп Платформасы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ҚОЛДАН ЖАСАЛҒАН АВТОРЛЫҚ SVG ЭМБЛЕМА ЖӘНЕ ИКОНКАЛАР -->
+  <svg class="svg-defs" aria-hidden="true">
+    <symbol id="emblem-qadam" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="qadamGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#38bdf8" />
+          <stop offset="50%" stop-color="#a3e635" />
+          <stop offset="100%" stop-color="#fb923c" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="56" height="56" rx="16" fill="#111827" stroke="url(#qadamGrad)" stroke-width="3" />
+      <path d="M14 46 H24 V36 H34 V26 H48" fill="none" stroke="url(#qadamGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="14" cy="46" r="3" fill="#38bdf8" />
+      <circle cx="34" cy="26" r="3" fill="#a3e635" />
+      <circle cx="48" cy="26" r="3.5" fill="#fb923c" />
+    </symbol>
+
+    <symbol id="ic-home" viewBox="0 0 24 24">
+      <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+    </symbol>
+
+    <symbol id="ic-step" viewBox="0 0 24 24">
+      <path d="M4 18h5v-4h5v-4h6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="20" cy="10" r="2.2" fill="currentColor" />
+    </symbol>
+
+    <symbol id="ic-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+      <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="ic-spark" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
+      <path d="M9 12h6M12 9v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="ic-chart" viewBox="0 0 24 24">
+      <rect x="3" y="12" width="4" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="2" />
+      <rect x="10" y="7" width="4" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="2" />
+      <rect x="17" y="4" width="4" height="16" rx="1.5" fill="none" stroke="currentColor" stroke-width="2" />
+    </symbol>
+
+    <symbol id="ic-support" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
+      <path d="M9 12h6M12 9v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="ic-dev" viewBox="0 0 24 24">
+      <polyline points="8 7 3 12 8 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <polyline points="16 7 21 12 16 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <line x1="14" y1="5" x2="10" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="ic-wa" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
+      <path d="M8 10l4 3 4-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
+    <symbol id="ic-logout" viewBox="0 0 24 24">
+      <path d="M14 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <polyline points="17 16 21 12 17 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+  </svg>
+
+  <!-- ==================== КІРУ ЖӘНЕ ТІРКЕЛУ ЭКРАНЫ ==================== -->
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-showcase">
+      <div class="showcase-overlay">
+        <div class="emblem-lockup">
+          <svg class="emblem-hero"><use href="#emblem-qadam" /></svg>
+          <div>
+            <h1 class="hero-logo-text">QADAM</h1>
+            <p class="hero-tagline">Саналы әдет, рухани тәртіп және әр күнгі өрлеу кеңістігі</p>
+          </div>
+        </div>
+
+        <div class="showcase-cards">
+          <div class="mini-visual-card">
+            <img
+              src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80"
+              alt="Тау жотасы мен бағыт"
+            />
+            <div class="mini-card-caption">
+              <span class="tag-lime">РУХАНИ ТӘРТІП</span>
+              <h3>Мақсат пен Цитата</h3>
+            </div>
+          </div>
+
+          <div class="mini-visual-card">
+            <img
+              src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80"
+              alt="Түнгі тау және жұлдыздар"
+            />
+            <div class="mini-card-caption">
+              <span class="tag-orange">КҮНДЕЛІКТІ РЫТМ</span>
+              <h3>Әдеттер мен Күн Режимі</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-box-wrap">
+      <div class="auth-card-large">
+        <div class="auth-top-brand">
+          <svg class="emblem-md"><use href="#emblem-qadam" /></svg>
+          <div>
+            <h2>QADAM Жүйесіне Кіру</h2>
+            <p>Жеке кабинетіңе кір немесе жаңа тіркелгі аш</p>
+          </div>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab is-active" data-auth-mode="login">Кіру</button>
+          <button type="button" class="auth-tab" data-auth-mode="register">Тіркелу</button>
+          <button type="button" class="auth-tab dev-tab" data-auth-mode="developer">Әзірлеуші</button>
+        </div>
+
+        <form id="userLoginForm" class="big-form">
+          <div class="input-group">
+            <label for="loginUsername">Логин</label>
+            <input id="loginUsername" type="text" placeholder="Логиніңізді жазыңыз" required />
+          </div>
+          <div class="input-group">
+            <label for="loginPassword">Құпия сөз (Пароль)</label>
+            <input id="loginPassword" type="password" placeholder="Құпия сөзді енгізіңіз" required />
+          </div>
+          <div id="loginError" class="msg-error is-hidden"></div>
+          <button type="submit" class="btn-xl btn-lime">Жүйеге кіру</button>
+        </form>
+
+        <form id="userRegisterForm" class="big-form is-hidden">
+          <div class="input-group">
+            <label for="regFullName">Аты-жөніңіз</label>
+            <input id="regFullName" type="text" placeholder="Мысалы: Айдана Серікқызы" required />
+          </div>
+          <div class="input-group">
+            <label for="regUsername">Жаңа логин</label>
+            <input id="regUsername" type="text" placeholder="Мысалы: aidana_qadam" required />
+          </div>
+          <div class="input-group">
+            <label for="regPassword">Құпия сөз (Пароль)</label>
+            <input id="regPassword" type="password" placeholder="Кемінде 4 таңба" required />
+          </div>
+          <div id="regMessage" class="msg-error is-hidden"></div>
+          <button type="submit" class="btn-xl btn-orange">Тіркелу және бастау</button>
+        </form>
+
+        <form id="devLoginForm" class="big-form is-hidden">
+          <div class="dev-notice">
+            Әзірлеуші панелі: жүйенің жалпы жағдайы, қолданушылар, аналитика, Qadam басқаруы, қауіпсіздік және неполадкалар.
+          </div>
+          <div class="input-group">
+            <label for="devUsername">Әзірлеуші логині</label>
+            <input id="devUsername" type="text" placeholder="Әзірлеуші логині" required />
+          </div>
+          <div class="input-group">
+            <label for="devPassword">Әзірлеуші паролі</label>
+            <input id="devPassword" type="password" placeholder="Әзірлеуші құпия сөзі" required />
+          </div>
+          <div id="devError" class="msg-error is-hidden"></div>
+          <button type="submit" class="btn-xl btn-sky">Әзірлеуші панеліне кіру</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== НЕГІЗГІ ҚОСЫМША ==================== -->
+  <div id="mainApp" class="main-app is-hidden">
+    <header class="site-header">
+      <div class="header-left">
+        <svg class="emblem-sm"><use href="#emblem-qadam" /></svg>
+        <span class="site-title">QADAM</span>
+        <span id="roleTag" class="badge-role">ҚОЛДАНУШЫ</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Негізгі мәзір">
+        <button type="button" class="nav-btn is-active" data-page="home">
+          <svg class="ic"><use href="#ic-home" /></svg>
+          <span>Басты бет</span>
+        </button>
+        <button type="button" class="nav-btn" data-page="habits">
+          <svg class="ic"><use href="#ic-step" /></svg>
+          <span>Әдеттер</span>
+        </button>
+        <button type="button" class="nav-btn user-only-nav" data-page="profile">
+          <svg class="ic"><use href="#ic-user" /></svg>
+          <span>Профиль</span>
+        </button>
+        <button type="button" class="nav-btn" data-page="ai">
+          <svg class="ic"><use href="#ic-spark" /></svg>
+          <span>AI Ассистент</span>
+        </button>
+        <button type="button" class="nav-btn" data-page="analytics">
+          <svg class="ic"><use href="#ic-chart" /></svg>
+          <span>Аналитика</span>
+        </button>
+        <button type="button" class="nav-btn" data-page="feedback">
+          <svg class="ic"><use href="#ic-support" /></svg>
+          <span>Қолдау &amp; Ұсыныс</span>
+        </button>
+        <button type="button" class="nav-btn dev-only-nav is-hidden" data-page="devpanel">
+          <svg class="ic"><use href="#ic-dev" /></svg>
+          <span>Әзірлеуші</span>
+        </button>
+      </nav>
+
+      <div class="header-right">
+        <div class="profile-pill">
+          <img id="headerAvatarImg" class="mini-avatar is-hidden" alt="Аватар" />
+          <span id="currentUserName">Қолданушы</span>
+        </div>
+        <button id="logoutButton" type="button" class="btn-logout">
+          <svg class="ic"><use href="#ic-logout" /></svg>
+          <span>Шығу</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container-main">
+      <!-- ==================== 1. БӨЛЕК БІРІНШІ БЕТ: МАҚСАТ, ЗИЯЛЫЛАР ОЙЫ ЖӘНЕ ЦИТАТА ==================== -->
+      <section id="page-home" class="page-view is-active">
+        <article class="manifesto-card">
+          <span class="tag-lime">САЙТТЫҢ МАҚСАТЫ МЕН МҮДДЕСІ</span>
+          <h2 id="homeMissionTitle">«QADAM» — Саналы өмір мен рухани кемелдіктің баспалдағы</h2>
+          <p id="homeMissionBody" class="literary-text"></p>
+          <p id="homeMissionInterest" class="literary-text"></p>
+          <div class="hero-cta-row">
+            <button type="button" id="goToHabitsBtn" class="btn-action btn-lime">
+              Әдеттер мен Күн режиміне өту
+            </button>
+          </div>
+        </article>
+
+        <div class="quote-banner">
+          <div>
+            <span class="tag-orange">КҮНДЕЛІКТІ ЖІГЕР ЦИТАТАСЫ</span>
+            <blockquote id="dailyQuoteText" class="quote-text"></blockquote>
+            <div id="dailyQuoteAuthor" class="quote-author"></div>
+          </div>
+          <button id="nextQuoteBtn" type="button" class="btn-outline">Келесі цитата</button>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <span class="tag-sky">01 · ТҰРАҚТЫЛЫҚ</span>
+            <h3>Күнделікті кішкентай қадам</h3>
+            <p>Үлкен өзгеріс бір күнде емес, күнделікті қайталанатын саналы істерден қалыптасады.</p>
+          </div>
+          <div class="pillar-card">
+            <span class="tag-lime">02 · ТӘРТІП</span>
+            <h3>Өзің баптайтын күн режимі</h3>
+            <p>Таңғы, күндізгі және кешкі уақытыңды өзің реттеп, өмір ырғағыңды сақтайсың.</p>
+          </div>
+          <div class="pillar-card">
+            <span class="tag-orange">03 · ЗЕРДЕ</span>
+            <h3>Онлайн AI талдау және есеп</h3>
+            <p>Сұрақтарыңа нақты жауап беретін AI-ассистент пен Power BI аналитикасы біртұтас жұмыс істейді.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. ӘДЕТТЕР ВКЛАДКАСЫ ==================== -->
+      <section id="page-habits" class="page-view">
+        <div class="section-header">
+          <div>
+            <span class="tag-sky">ЖЕКЕ ӘДЕТТЕР</span>
+            <h2 id="habitsWelcomeHeading">Маған қажет әдеттер</h2>
+          </div>
+          <span id="habitsSummaryBadge" class="badge-soft">0 / 0 орындалды</span>
+        </div>
+
+        <form id="addHabitForm" class="habit-creator">
+          <input id="habitNameInput" type="text" placeholder="Өзіңе қажет жаңа әдет жаз (мыс: Кешкі 20 мин серуен)" required />
+          <select id="habitCatSelect"></select>
+          <button type="submit" class="btn-action btn-lime">+ Әдет қосу</button>
+        </form>
+
+        <div id="habitsGrid" class="cards-grid"></div>
+
+        <div class="routine-section">
+          <div class="section-header">
+            <div>
+              <span class="tag-lime">КҮН РЕЖИМІ</span>
+              <h3>Менің күнделікті күн тәртібім (өзің өзгерте аласың)</h3>
+            </div>
+          </div>
+
+          <form id="addRoutineForm" class="routine-creator">
+            <input id="routineTimeInput" type="time" required />
+            <select id="routinePeriodSelect">
+              <option value="Таңғы кезең">Таңғы кезең</option>
+              <option value="Күндізгі кезең">Күндізгі кезең</option>
+              <option value="Кешкі кезең">Кешкі кезең</option>
+            </select>
+            <input id="routineTaskInput" type="text" placeholder="Күн режиміндегі іс (мыс: Оқу, Жаттығу, Демалыс)" required />
+            <button type="submit" class="btn-action btn-sky">+ Режимге қос</button>
+          </form>
+
+          <div id="routineList" class="routine-list"></div>
+        </div>
+
+        <div class="thinkers-section">
+          <div class="section-header">
+            <div>
+              <span class="tag-orange">ТҰЛҒАЛАР ТӘЖІРИБЕСІ · 10 ОЙ ЖӘНЕ КЕҢЕС</span>
+              <h3>Әдет қалыптастырудағы танымал тұлғалардың сөзі мен кеңестері</h3>
+            </div>
+          </div>
+
+          <div id="thinkersGrid" class="thinkers-grid"></div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. ПРОФИЛЬ БЕТІ ==================== -->
+      <section id="page-profile" class="page-view">
+        <div class="section-header">
+          <div>
+            <span class="tag-lime">ЖЕКЕ ПРОФИЛЬ</span>
+            <h2>Профильді баптау және Аватарка</h2>
+          </div>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="surface-card avatar-card">
+            <h3>Аватарка суреті</h3>
+            <p class="muted-text">
+              Жүктеген суретің жеке профиліңде және әзірлеуші панеліндегі қолданушылар тізімінде көрініп тұрады.
+            </p>
+            <div class="avatar-preview-wrap">
+              <img id="profileAvatarPreview" class="profile-avatar-lg is-hidden" alt="Пайдаланушы аватаркасы" />
+              <div id="profileAvatarPlaceholder" class="avatar-placeholder">СУРЕТ ЖОҚ</div>
+            </div>
+            <label class="btn-outline file-pick-btn">
+              <span>Сурет таңдау (JPG / PNG / WEBP)</span>
+              <input id="avatarFileInput" type="file" accept="image/*" hidden />
+            </label>
+            <div id="avatarStatusMsg" class="msg-ok is-hidden">Аватарка жаңартылды!</div>
+          </div>
+
+          <div class="surface-card">
+            <h3>Логин, Аты-жөн және Құпия сөзді өзгерту</h3>
+            <form id="profileEditForm" class="big-form">
+              <div class="input-group">
+                <label for="editFullName">Аты-жөніңіз</label>
+                <input id="editFullName" type="text" required />
+              </div>
+              <div class="input-group">
+                <label for="editLogin">Жаңа логин</label>
+                <input id="editLogin" type="text" required />
+              </div>
+              <div class="input-group">
+                <label for="editPassword">Жаңа құпия сөз (Пароль)</label>
+                <input id="editPassword" type="text" required />
+              </div>
+              <div id="profileErrMsg" class="msg-error is-hidden"></div>
+              <div id="profileOkMsg" class="msg-ok is-hidden">Деректер сәтті сақталды!</div>
+              <button type="submit" class="btn-action btn-lime">Өзгерістерді сақтау</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. ОНЛАЙН AI АССИСТЕНТ ==================== -->
+      <section id="page-ai" class="page-view">
+        <div class="section-header">
+          <div>
+            <span class="tag-sky">ОНЛАЙН РЕЖИМ · TRANSFORMERS.JS</span>
+            <h2>QADAM AI Ассистент</h2>
+          </div>
+          <span id="aiStatusPill" class="status-pill">Онлайн тексеруде...</span>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="surface-card">
+            <label class="field-lbl" for="aiTextInput">Сұрағыңды, мәселеңді немесе әдетке қатысты ойыңды нақты жаз:</label>
+            <textarea
+              id="aiTextInput"
+              rows="5"
+              placeholder="Мысалы: Күнделікті ұйқымды реттеп, таңертең ерте тұруды қалай әдетке айналдырамын?"
+            ></textarea>
+            <div class="btn-row">
+              <button id="aiAnalyzeBtn" type="button" class="btn-action btn-lime">
+                <svg class="ic"><use href="#ic-spark" /></svg>
+                <span>Онлайн талдау және жауап алу</span>
+              </button>
+              <button id="aiApplyHabitBtn" type="button" class="btn-outline" disabled>
+                Ұсынылған әдетті қосу
+              </button>
+            </div>
+            <div id="aiErrBox" class="msg-error is-hidden"></div>
+          </div>
+
+          <div class="surface-card">
+            <div class="card-top-row">
+              <h3>Ассистент жауабы</h3>
+              <span id="aiScoreTag" class="badge-soft">—</span>
+            </div>
+            <div id="aiOutputArea" class="ai-output-box">
+              Сұрағыңды немесе мақсатыңды жаз — ассистент онлайн режимде мәтінді талдап, нақты кеңес пен әдет ұсынады.
+            </div>
+            <p class="source-note">
+              Онлайн модель: <code>Xenova/distilbert-base-uncased-finetuned-sst-2-english</code> ·
+              <a href="https://huggingface.co/docs/transformers.js" target="_blank" rel="noopener">Transformers.js</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 5. POWER BI АНАЛИТИКА ==================== -->
+      <section id="page-analytics" class="page-view">
+        <div class="section-header">
+          <div>
+            <span class="tag-orange">POWER BI ЕСЕБІ</span>
+            <h2>Әдеттер және Белсенділік Аналитикасы</h2>
+          </div>
+          <a href="data/qadam_habits_dataset.csv" download class="btn-outline">Деректер жинағын жүктеу (CSV)</a>
+        </div>
+
+        <div class="surface-card analytics-card">
+          <div class="dashboard-preview-wrap">
+            <img
+              src="images/powerbi-dashboard.png"
+              alt="QADAM Power BI аналитика дашборды"
+              onerror="this.style.display='none'; document.getElementById('biFallbackBox').classList.remove('is-hidden');"
+            />
+            <div id="biFallbackBox" class="bi-placeholder is-hidden">
+              <h3>Power BI Дашборд суреті осында көрсетіледі</h3>
+              <p>Power BI Desktop-та жасалған дашбордты суретке түсіріп, <code>images/powerbi-dashboard.png</code> деп сақтаңыз.</p>
+            </div>
+          </div>
+
+          <div class="insights-grid">
+            <div class="insight-item">
+              <span class="tag-lime">1-ҚОРЫТЫНДЫ</span>
+              <p><strong>Ең тұрақты бағыт:</strong> «Білім және Рух» санатындағы әдеттердің орындалу үлесі 42%-ға жетті.</p>
+            </div>
+            <div class="insight-item">
+              <span class="tag-sky">2-ҚОРЫТЫНДЫ</span>
+              <p><strong>Апталық ырғақ:</strong> Жұмыс күндері әдеттердің орындалу көрсеткіші демалыс күндеріне қарағанда 1.4 есе жоғары.</p>
+            </div>
+            <div class="insight-item">
+              <span class="tag-orange">3-ҚОРЫТЫНДЫ</span>
+              <p><strong>Күн режимінің ықпалы:</strong> Таңғы режимін нақтылаған қолданушылардың күндізгі тапсырмалары 68%-ға жиі аяқталады.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 6. ҚОЛДАУ, WHATSAPP, KASPI, ПОЧТА ЖӘНЕ ШАҒЫМ/ҰСЫНЫС ==================== -->
+      <section id="page-feedback" class="page-view">
+        <div class="section-header">
+          <div>
+            <span class="tag-lime">БАЙЛАНЫС ЖӘНЕ ҚОЛДАУ</span>
+            <h2>Көмек, Қолдау және Ұсыныстар</h2>
+          </div>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="surface-card support-info-card">
+            <h3>Тікелей байланыс және Жобаны қолдау</h3>
+            <p class="muted-text">
+              Сұрақтарыңыз болса WhatsApp немесе электрондық почта арқылы байланысыңыз, не жобаны қолдаңыз.
+            </p>
+
+            <div class="contact-block">
+              <!-- Нөмір көрінбейді, сілтеме жасырын нөмірмен жұмыс істейді -->
+              <div class="contact-item">
+                <span class="contact-label">Қолданушыларға арналған WhatsApp:</span>
+                <span class="masked-hint">Байланыс арнасы белсенді</span>
+                <a id="waLinkBtn" href="#" target="_blank" rel="noopener" class="btn-action btn-wa">
+                  <svg class="ic"><use href="#ic-wa" /></svg>
+                  <span>WhatsApp-қа жазу</span>
+                </a>
+              </div>
+
+              <!-- Нөмір көрінбейді, тек алушы аты көрсетіледі -->
+              <div class="contact-item kaspi-box">
+                <span class="contact-label">Жобаны қолдау (Kaspi Gold):</span>
+                <span class="masked-hint">Реквизит жасырылған</span>
+                <span class="kaspi-owner">Алушы: <strong id="kaspiOwnerDisplay">Жігер М.</strong></span>
+                <button id="copyKaspiBtn" type="button" class="btn-outline">Kaspi реквизитін көшіру</button>
+              </div>
+
+              <!-- Почта көрсетіледі -->
+              <div class="contact-item">
+                <span class="contact-label">Электрондық почта:</span>
+                <strong id="supportEmailDisplay" class="contact-val">zhigerm05@gmail.com</strong>
+                <button id="copyEmailBtn" type="button" class="btn-outline">Почтаны көшіру</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="surface-card">
+            <h3>Шағым немесе Ұсыныс жіберу</h3>
+            <p class="muted-text">
+              Ұсынысыңыз немесе шағымыңыз тікелей әзірлеуші панеліне түседі (шағымдар «Неполадки» тізімінде де көрінеді).
+            </p>
+            <form id="feedbackForm" class="big-form">
+              <div class="input-group">
+                <label for="fbType">Хабарлама түрі</label>
+                <select id="fbType">
+                  <option value="Ұсыныс">Ұсыныс / Жаңа идея</option>
+                  <option value="Шағым">Шағым / Қате туралы хабарлау</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="fbMessage">Мәтіні</label>
+                <textarea
+                  id="fbMessage"
+                  rows="4"
+                  placeholder="Ұсынысыңызды немесе кездескен ақауды жазыңыз..."
+                  required
+                ></textarea>
+              </div>
+              <div id="fbSuccessMsg" class="msg-ok is-hidden">Хабарламаңыз әзірлеушіге сәтті жіберілді!</div>
+              <button type="submit" class="btn-action btn-orange">Әзірлеушіге жіберу</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 7. ӘЗІРЛЕУШІ ПАНЕЛІ (БӘРІН ӨЗГЕРТУ МҮМКІНДІГІМЕН) ==================== -->
+      <section id="page-devpanel" class="page-view dev-only-nav is-hidden">
+        <div class="section-header">
+          <div>
+            <span class="tag-sky">ӘЗІРЛЕУШІ БАСҚАРУ ПАНЕЛІ</span>
+            <h2>Жүйені басқару орталығы</h2>
+          </div>
+        </div>
+
+        <div class="dev-subnav" role="tablist">
+          <button type="button" class="dev-sub-btn is-active" data-dev-tab="overview">01. Overview</button>
+          <button type="button" class="dev-sub-btn" data-dev-tab="users">02. Users</button>
+          <button type="button" class="dev-sub-btn" data-dev-tab="analytics">03. Analytics</button>
+          <button type="button" class="dev-sub-btn" data-dev-tab="management">04. Qadam Management</button>
+          <button type="button" class="dev-sub-btn" data-dev-tab="security">05. Security</button>
+          <button type="button" class="dev-sub-btn" data-dev-tab="issues">06. Неполадки</button>
+        </div>
+
+        <!-- 01. OVERVIEW -->
+        <div id="dev-tab-overview" class="dev-tab-panel is-active">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-num" id="ovRegisteredCount">1,248</span>
+              <span class="kpi-label">Тіркелген қолданушылар</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-num" id="ovActiveCount">386</span>
+              <span class="kpi-label">Белсенді қолданушылар</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-num" id="ovCompletedHabitsCount">8,562</span>
+              <span class="kpi-label">Орындалған әдеттер</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-num" id="ovCompletionRate">72%</span>
+              <span class="kpi-label">Орташа орындалу деңгейі</span>
+            </div>
+          </div>
+
+          <div class="two-col-grid">
+            <div class="surface-card">
+              <h3>Платформаның жалпы жағдайы</h3>
+              <p class="muted-text" id="ovHealthSummary"></p>
+            </div>
+            <div class="surface-card">
+              <h3>Түскен ұсыныстар мен шағымдар</h3>
+              <div id="devFeedbackList" class="feedback-stack"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02. USERS -->
+        <div id="dev-tab-users" class="dev-tab-panel">
+          <div class="surface-card">
+            <h3>Тіркелген адамдар, аккаунттар, рөлдер және бұғаттау</h3>
+            <div class="table-wrap">
+              <table class="dev-table">
+                <thead>
+                  <tr>
+                    <th>Аватар</th>
+                    <th>Аты-жөні</th>
+                    <th>Логин</th>
+                    <th>Пароль</th>
+                    <th>Рөлі</th>
+                    <th>Күйі</th>
+                    <th>Әрекет</th>
+                  </tr>
+                </thead>
+                <tbody id="devUsersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03. ANALYTICS -->
+        <div id="dev-tab-analytics" class="dev-tab-panel">
+          <div class="two-col-grid">
+            <div class="surface-card">
+              <h3>Күнделікті белсенділік және өсу динамикасы</h3>
+              <div id="devGrowthBars" class="bar-chart-list"></div>
+            </div>
+            <div class="surface-card">
+              <h3>Санаттар бойынша әдеттер статистикасы</h3>
+              <div id="devCategoryStats" class="bar-chart-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04. QADAM MANAGEMENT: Мақсат/Мүдде, Цитата, 10 Тұлға сөзі/ойы/кеңесі, Байланыс & Почта -->
+        <div id="dev-tab-management" class="dev-tab-panel">
+          <div class="two-col-grid">
+            <div class="surface-card">
+              <h3>Бірінші беттегі Мақсат пен Мүдде мәтінін өзгерту</h3>
+              <form id="editMissionForm" class="big-form">
+                <div class="input-group">
+                  <label for="cfgMissionTitle">Тақырып</label>
+                  <input id="cfgMissionTitle" type="text" required />
+                </div>
+                <div class="input-group">
+                  <label for="cfgMissionBody">Зиялылар ойы және негізгі мақсат мәтіні</label>
+                  <textarea id="cfgMissionBody" rows="4" required></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="cfgMissionInterest">Жоба мүддесі (әдет пен қадам туралы)</label>
+                  <textarea id="cfgMissionInterest" rows="3" required></textarea>
+                </div>
+                <div id="missionSaveMsg" class="msg-ok is-hidden">Мақсат пен мүдде мәтіні жаңартылды!</div>
+                <button type="submit" class="btn-action btn-lime">Мәтінді сақтау</button>
+              </form>
+
+              <h3 style="margin-top:10px;">Почта және Қолдау деректерін өзгерту</h3>
+              <form id="editContactForm" class="big-form">
+                <div class="input-group">
+                  <label for="cfgEmail">Электрондық почта</label>
+                  <input id="cfgEmail" type="email" required />
+                </div>
+                <div class="input-group">
+                  <label for="cfgKaspiOwner">Kaspi алушы аты</label>
+                  <input id="cfgKaspiOwner" type="text" required />
+                </div>
+                <div class="input-group">
+                  <label for="cfgHiddenWa">WhatsApp сілтемесіне арналған нөмір (бетте көрінбейді)</label>
+                  <input id="cfgHiddenWa" type="text" required />
+                </div>
+                <div class="input-group">
+                  <label for="cfgHiddenKaspi">Kaspi реквизиті (бетте көрінбейді)</label>
+                  <input id="cfgHiddenKaspi" type="text" required />
+                </div>
+                <div id="contactSaveMsg" class="msg-ok is-hidden">Байланыс деректері сақталды!</div>
+                <button type="submit" class="btn-action btn-sky">Байланысты сақтау</button>
+              </form>
+            </div>
+
+            <div class="surface-card">
+              <h3>Күнделікті цитатаны өзгерту және жаңа цитата қосу</h3>
+              <form id="editQuoteForm" class="big-form">
+                <div class="input-group">
+                  <label for="cfgQuoteText">Цитата мәтіні</label>
+                  <textarea id="cfgQuoteText" rows="3" required></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="cfgQuoteAuthor">Авторы</label>
+                  <input id="cfgQuoteAuthor" type="text" required />
+                </div>
+                <div id="quoteSaveMsg" class="msg-ok is-hidden">Цитата жаңартылды!</div>
+                <button type="submit" class="btn-action btn-orange">Цитаталар тізіміне қосу және көрсету</button>
+              </form>
+
+              <h3 style="margin-top:12px;">«Әдеттер» бөліміндегі 10 танымал тұлғаның сөзі мен кеңесін өзгерту</h3>
+              <form id="editThinkerForm" class="big-form">
+                <div class="input-group">
+                  <label for="cfgThinkerSelect">Тұлғаны таңдаңыз (1–10)</label>
+                  <select id="cfgThinkerSelect"></select>
+                </div>
+                <div class="input-group">
+                  <label for="cfgThinkerName">Тұлғаның аты-жөні</label>
+                  <input id="cfgThinkerName" type="text" required />
+                </div>
+                <div class="input-group">
+                  <label for="cfgThinkerTag">Бағыты / Тегі</label>
+                  <input id="cfgThinkerTag" type="text" required />
+                </div>
+                <div class="input-group">
+                  <label for="cfgThinkerQuote">Тұлғаның сөзі / цитатасы</label>
+                  <textarea id="cfgThinkerQuote" rows="2" required></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="cfgThinkerFact">Әдет қалыптастырудағы ойы / мәліметі</label>
+                  <textarea id="cfgThinkerFact" rows="2" required></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="cfgThinkerTip">Кеңесі</label>
+                  <textarea id="cfgThinkerTip" rows="2" required></textarea>
+                </div>
+                <div id="thinkerSaveMsg" class="msg-ok is-hidden">Тұлғаның мәліметі мен сөзі жаңартылды!</div>
+                <button type="submit" class="btn-action btn-lime">Тұлға дерегін сақтау</button>
+              </form>
+
+              <div class="input-group" style="margin-top:12px;">
+                <label for="newCategoryName">Жаңа әдет санатын қосу</label>
+                <div class="btn-row">
+                  <input id="newCategoryName" type="text" placeholder="Мысалы: Тіл үйрену" />
+                  <button id="addCatBtn" type="button" class="btn-outline">Қосу</button>
+                </div>
+              </div>
+              <div id="devCategoriesChips" class="chips-wrap"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05. SECURITY -->
+        <div id="dev-tab-security" class="dev-tab-panel">
+          <div class="two-col-grid">
+            <div class="surface-card">
+              <h3>Әзірлеуші логині мен паролін жаңарту</h3>
+              <form id="devSecForm" class="big-form">
+                <div class="input-group">
+                  <label for="secDevLogin">Әзірлеуші логині</label>
+                  <input id="secDevLogin" type="text" required />
+                </div>
+                <div class="input-group">
+                  <label for="secDevPass">Әзірлеуші құпия сөзі</label>
+                  <input id="secDevPass" type="text" required />
+                </div>
+                <div id="secSaveMsg" class="msg-ok is-hidden">Қауіпсіздік деректері жаңартылды!</div>
+                <button type="submit" class="btn-action btn-sky">Сақтау</button>
+              </form>
+            </div>
+
+            <div class="surface-card">
+              <h3>Кіру тарихы және рұқсаттар журналы</h3>
+              <div id="securityLogsList" class="feedback-stack"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06. НЕПОЛАДКИ -->
+        <div id="dev-tab-issues" class="dev-tab-panel">
+          <div class="surface-card">
+            <h3>Қолданушы тарапынан тіркелген неполадкалар мен ақаулар</h3>
+            <div id="devIssuesList" class="feedback-stack"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
